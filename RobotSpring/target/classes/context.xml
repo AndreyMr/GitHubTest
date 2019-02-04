@@ -2,13 +2,14 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:p="http://www.springframework.org/schema/p"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+	default-init-method="initObject" default-destroy-method="destroyObject" default-lazy-init="false">
 
 
 	<bean id="t1000"
 		class="ru.javabegin.training.spring.impls.robot.ModelT1000"
-		lazy-init="false" p:hand-ref="sonyHand" p:leg-ref="toshibaLeg"
-		p:head-ref="toshibaHead">
+		p:hand-ref="sonyHand" p:leg-ref="toshibaLeg" p:head-ref="toshibaHead"
+		>
 
 		<!-- <constructor-arg ref="sonyHand"/> -->
 		<!-- <constructor-arg ref="sonyLeg"/> -->
@@ -25,30 +26,33 @@
 	</bean>
 
 	<bean id="t1000Empty"
-		class="ru.javabegin.training.spring.impls.robot.ModelT1000">
-		<constructor-arg ref="sonyHand" index="0"/>
-		<constructor-arg ref="toshibaLeg" index="1"/>
-		<constructor-arg ref="toshibaHead" index="2"/>
-	
+		class="ru.javabegin.training.spring.impls.robot.ModelT1000"
+	>
+		<constructor-arg ref="sonyHand" index="0" />
+		<constructor-arg ref="toshibaLeg" index="1" />
+		<constructor-arg ref="sonyHead" index="2" />
+
 	</bean>
 	<bean id="sonyHand"
 		class="ru.javabegin.training.spring.impls.sony.SonyHand" />
-	
+
 	<bean id="sonyHead"
-		class="ru.javabegin.training.spring.impls.sony.SonyHead" />
-	
+		class="ru.javabegin.training.spring.impls.sony.SonyHead"
+		/>
+
 	<bean id="sonyLeg"
 		class="ru.javabegin.training.spring.impls.sony.SonyLeg" />
 
-	
+
 	<bean id="toshibaHand"
 		class="ru.javabegin.training.spring.impls.toshiba.ToshibaHand" />
-	
+
 	<bean id="toshibaHead"
-		class="ru.javabegin.training.spring.impls.toshiba.ToshibaHead" />
-	
+		class="ru.javabegin.training.spring.impls.toshiba.ToshibaHead"
+		/>
+
 	<bean id="toshibaLeg"
 		class="ru.javabegin.training.spring.impls.toshiba.ToshibaLeg" />
 
-	
+
 </beans>
