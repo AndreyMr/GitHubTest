@@ -3,13 +3,8 @@ package ru.javabegin.training.spring.impls.robot;
 import ru.javabegin.training.spring.interfaces.Hand;
 import ru.javabegin.training.spring.interfaces.Head;
 import ru.javabegin.training.spring.interfaces.Leg;
-import ru.javabegin.training.spring.interfaces.Robot;
 
-public class ModelT1000 implements Robot {
-
-	private Hand hand;
-	private Leg leg;
-	private Head head;
+public class ModelT1000 extends BaseModel {
 
 	private String color;
 	private int year;
@@ -19,17 +14,11 @@ public class ModelT1000 implements Robot {
 	}
 
 	public ModelT1000(Hand hand, Leg leg, Head head) {
-		super();
-		this.hand = hand;
-		this.leg = leg;
-		this.head = head;
+		super(hand, leg, head);
 	}
 
 	public ModelT1000(Hand hand, Leg leg, Head head, String color, int year, boolean soundEnable) {
-		super();
-		this.hand = hand;
-		this.leg = leg;
-		this.head = head;
+		super(hand, leg, head);
 		this.color = color;
 		this.year = year;
 		this.soundEnable = soundEnable;
@@ -40,30 +29,6 @@ public class ModelT1000 implements Robot {
 		this.color = color;
 		this.year = year;
 		this.soundEnable = soundEnable;
-	}
-
-	public Hand getHand() {
-		return hand;
-	}
-
-	public void setHand(Hand hand) {
-		this.hand = hand;
-	}
-
-	public Leg getLeg() {
-		return leg;
-	}
-
-	public void setLeg(Leg leg) {
-		this.leg = leg;
-	}
-
-	public Head getHead() {
-		return head;
-	}
-
-	public void setHead(Head head) {
-		this.head = head;
 	}
 
 	public String getColor() {
