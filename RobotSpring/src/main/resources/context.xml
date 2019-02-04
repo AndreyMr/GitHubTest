@@ -33,6 +33,7 @@
 		<constructor-arg ref="sonyHead" index="2" />
 
 	</bean>
+	<bean class="ru.javabegin.training.spring.main.MyBeanPostProcessor" />
 	<bean id="sonyHand"
 		class="ru.javabegin.training.spring.impls.sony.SonyHand" />
 
