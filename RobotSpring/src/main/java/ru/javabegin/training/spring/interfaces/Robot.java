@@ -1,7 +1,7 @@
 package ru.javabegin.training.spring.interfaces;
 
 public interface Robot {
-	void fire();
+	void action();
 
 	void dance();
 }
