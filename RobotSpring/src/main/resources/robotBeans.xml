@@ -7,7 +7,7 @@
 	<import resource="detailBeans.xml"/>
 	
 	<bean id="t1000" parent="baseModel" class="ru.javabegin.training.spring.impls.robot.ModelT1000"
-		>		
+		scope="prototype" >		
 		<constructor-arg value="silver" type="String" index="3" />
 		<constructor-arg value="2005" type="int" index="4" />
 		<constructor-arg value="true" type="boolean" index="5" />
