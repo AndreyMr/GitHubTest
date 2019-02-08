@@ -13,7 +13,7 @@
 		<constructor-arg value="silver" type="String" index="3" />
 		<constructor-arg value="2005" type="int" index="4" />
 		<constructor-arg value="true" type="boolean" index="5" />
-		<replaced-method name="action" replacer="actionReplacer"/>
+<!-- 		<replaced-method name="action" replacer="actionReplacer"/> -->
 	</bean>
 
 	<bean id="baseModel" abstract="true" 

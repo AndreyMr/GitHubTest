@@ -11,6 +11,56 @@
 		/> -->
 	<bean id="t1000Conveyor"
 		class="ru.javabegin.training.spring.impls.conveyor.T1000conveyor">
-		<lookup-method name="createRobot" bean="t1000"/>
+		<lookup-method name="createRobot" bean="t1000" />
+	</bean>
+
+	<bean name="t1000poollist"
+		class="ru.javabegin.training.spring.impls.pool.T1000Pool">
+		<constructor-arg name="robotByYearMap">
+			<map>
+				<entry key="2005" value-ref="t1000" />
+				<entry key="2006" value-ref="t1000" />
+				<entry key="2007">
+					<bean
+						class="ru.javabegin.training.spring.impls.robot.ModelT1000"
+						parent="baseModel">
+						<constructor-arg value="blue" type="String"
+							index="3" />
+						<constructor-arg value="2007" type="int" index="4" />
+						<constructor-arg value="false" type="boolean"
+							index="5" />
+					</bean>
+				</entry>
+			</map>
+		</constructor-arg>
+		<property name="robotCollection">
+			<list>
+				<ref bean="t1000" />
+				<bean
+					class="ru.javabegin.training.spring.impls.robot.ModelT1000"
+					parent="baseModel" scope="prototype">
+					<constructor-arg value="green" type="String"
+						index="3" />
+					<constructor-arg value="2008" type="int" index="4" />
+					<constructor-arg value="false" type="boolean"
+						index="5" />
+				</bean>
+				<bean
+					class="ru.javabegin.training.spring.impls.robot.ModelT1000"
+					parent="baseModel" scope="prototype">
+					<constructor-arg value="red" type="String"
+						index="3" />
+					<constructor-arg value="2006" type="int" index="4" />
+					<constructor-arg value="false" type="boolean"
+						index="5" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="t1000FalsePool"
+		class="ru.javabegin.training.spring.impls.pool.T1000Pool">
+		<property name="robotCollection"
+			value="#{t1000poollist.robotCollection.?[soundEnable.toString().toUpperCase() eq 'FALSE']}" />
 	</bean>
 </beans>
