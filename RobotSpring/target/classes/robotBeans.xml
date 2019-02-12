@@ -2,24 +2,30 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:p="http://www.springframework.org/schema/p"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
-	default-init-method="initObject" default-destroy-method="destroyObject" default-lazy-init="true">
-	<import resource="detailBeans.xml"/>
+	default-init-method="initObject" default-destroy-method="destroyObject"
+	default-lazy-init="true"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<import resource="sonyDetail.xml"/>
+	<import resource="toshibaDetail.xml"/>
+	<context:annotation-config/>
 	
 	<bean id = "actionReplacer" class="ru.javabegin.training.spring.main.ActionReplacer" />
 	
 	<bean id="t1000" parent="baseModel" class="ru.javabegin.training.spring.impls.robot.ModelT1000"
 		scope="prototype" >		
-		<constructor-arg value="silver" type="String" index="3" />
+<!-- 		<constructor-arg value="silver" type="String" index="3" />
 		<constructor-arg value="2005" type="int" index="4" />
-		<constructor-arg value="true" type="boolean" index="5" />
+		<constructor-arg value="true" type="boolean" index="5" /> -->
 <!-- 		<replaced-method name="action" replacer="actionReplacer"/> -->
 	</bean>
 
 	<bean id="baseModel" abstract="true" 
 		>
-		<constructor-arg ref="sonyHand" index="0"/>
+	<!-- 	<constructor-arg ref="sonyHand" index="0"/>
 		<constructor-arg ref="toshibaLeg" index="1"/>
-		<constructor-arg ref="sonyHead" index="2"/>
+		<constructor-arg ref="sonyHead" index="2"/> -->
 	</bean>
 </beans>
