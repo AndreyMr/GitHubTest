@@ -11,6 +11,7 @@
 		<config>src/main/resources/robotBeans.xml</config>
 		<config>src/main/resources/sonyDetail.xml</config>
 		<config>src/main/resources/toshibaDetail.xml</config>
+		<config>src/main/resources/all-context-scan.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

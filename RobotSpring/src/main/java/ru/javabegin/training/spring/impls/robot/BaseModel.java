@@ -10,7 +10,7 @@ import ru.javabegin.training.spring.interfaces.Robot;
 
 public abstract class BaseModel implements Robot {
 	@Autowired
-	@Qualifier("sonySuperHand")
+	@Qualifier("sonyHand")
 	protected Hand hand;
 	@Autowired
 	@Qualifier("sonyLeg")

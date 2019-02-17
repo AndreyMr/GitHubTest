@@ -8,7 +8,7 @@
 	
 	<bean id="sonyHand"
 		class="ru.javabegin.training.spring.impls.sony.SonyHand" >
-		<qualifier value="sonySuperHand"/>
+		
 		</bean>
 
 	<bean id="sonyHead"

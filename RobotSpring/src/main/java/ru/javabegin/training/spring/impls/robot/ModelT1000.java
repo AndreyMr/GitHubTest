@@ -1,9 +1,15 @@
 package ru.javabegin.training.spring.impls.robot;
 
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import ru.javabegin.training.spring.interfaces.Hand;
 import ru.javabegin.training.spring.interfaces.Head;
 import ru.javabegin.training.spring.interfaces.Leg;
 
+@Component
 public class ModelT1000 extends BaseModel {
 
 	private String color;
@@ -29,6 +35,12 @@ public class ModelT1000 extends BaseModel {
 		this.color = color;
 		this.year = year;
 		this.soundEnable = soundEnable;
+	}
+
+	@Bean
+	@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+	public ModelT1000 model1() {
+		return new ModelT1000("Black", 2010, true);
 	}
 
 	public String getColor() {
