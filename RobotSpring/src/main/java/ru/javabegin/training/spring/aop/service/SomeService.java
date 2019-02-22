@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class SomeService {
+
 	public int getItValue() {
 		return 5;
 	}
@@ -16,4 +17,5 @@ public class SomeService {
 		System.out.println("Возник Exeption");
 		throw new ClassCastException();
 	}
+
 }
