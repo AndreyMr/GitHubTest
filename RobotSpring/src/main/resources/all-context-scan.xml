@@ -11,16 +11,18 @@
 		base-package="ru.javabegin.training.spring" />
 
 	<aop:config>
-		<aop:aspect id="log" ref="myLogger">
+	<aop:aspect id="log" ref="myLogger">
 			<aop:pointcut
-				expression="execution(* ru.javabegin.training.spring.aop.service.SomeService.*(..))"
+				expression="execution(* ru.javabegin.training.spring.aop.objects.FileManager.*(..))"
 				id="getValue" />
 			<aop:before method="init" pointcut-ref="getValue" />
 			<aop:after method="close" pointcut-ref="getValue" />
 			<aop:after-returning method="printValue"
 				pointcut-ref="getValue" returning="obj" />
 			<aop:after-throwing method="checkExeption" pointcut-ref="getValue" throwing="e"/>
-
+		</aop:aspect>
+		<aop:aspect id  = "publicLog" ref = "myLogger">
+			<aop:around pointcut="execution(public * *(..))" method  = "watchTime"/>
 		</aop:aspect>
 	</aop:config>
 

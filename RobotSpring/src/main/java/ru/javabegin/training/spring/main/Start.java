@@ -3,8 +3,7 @@ package ru.javabegin.training.spring.main;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import ru.javabegin.training.spring.aop.service.SomeService;
-import ru.javabegin.training.spring.impls.robot.ModelT1000;
+import ru.javabegin.training.spring.aop.objects.FileManager;
 
 /**
  * @author Андрей
@@ -19,10 +18,12 @@ public class Start {
 		// T1000Pool pool = (T1000Pool) context.getBean("t1000poollist");
 		// pool.actionList();
 		ApplicationContext contextScan = new ClassPathXmlApplicationContext("all-context-scan.xml");
-		ModelT1000 t1001 = (ModelT1000) contextScan.getBean("model1");
-		t1001.action();
-		SomeService service = contextScan.getBean(SomeService.class);
-		service.throwSomeMysticException();
+		// ModelT1000 t1001 = (ModelT1000) contextScan.getBean("model1");
+		// t1001.action();
+		// SomeService service = contextScan.getBean(SomeService.class);
+		// service.throwSomeMysticException();
+		FileManager manager = contextScan.getBean(FileManager.class);
+		manager.getExtensionCount("C:\\Users\\Андрей\\Downloads");
 
 	}
 }

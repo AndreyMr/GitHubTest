@@ -1,4 +1,4 @@
-package ru.javabegin.training.spring.aop.service;
+package ru.javabegin.training.spring.aop.objects;
 
 import org.springframework.stereotype.Component;
 
