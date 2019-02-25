@@ -9,8 +9,8 @@
 	<context:annotation-config />
 	<context:component-scan
 		base-package="ru.javabegin.training.spring" />
-
-	<aop:config>
+	<aop:aspectj-autoproxy/>
+<!-- 	<aop:config>
 	<aop:aspect id="log" ref="myLogger">
 			<aop:pointcut
 				expression="execution(* ru.javabegin.training.spring.aop.objects.FileManager.*(..))"
@@ -24,6 +24,6 @@
 		<aop:aspect id  = "publicLog" ref = "myLogger">
 			<aop:around pointcut="execution(public * *(..))" method  = "watchTime"/>
 		</aop:aspect>
-	</aop:config>
+	</aop:config> -->
 
 </beans>

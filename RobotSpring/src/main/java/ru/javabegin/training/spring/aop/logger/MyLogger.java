@@ -3,15 +3,25 @@ package ru.javabegin.training.spring.aop.logger;
 import java.util.Map;
 
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
+@Aspect
 public class MyLogger {
 	private static final Logger logger = LoggerFactory.getLogger(MyLogger.class.getSimpleName());
 
-	private void printValue(Object obj) {
+	@Pointcut("execution(* *(..)) && within(ru.javabegin.training.spring.aop.objects.*)")
+	private void watchtimeCut() {
+	}
+
+	@AfterReturning(pointcut = "watchtimeCut()", returning = "obj")
+	public void printValue(Object obj) {
 		if (obj instanceof Map) {
 			Map map = (Map) obj;
 			for (Object mapKeySet : map.keySet()) {
@@ -32,6 +42,7 @@ public class MyLogger {
 		logger.error("Exeption name: " + e.toString());
 	}
 
+	@Around("watchtimeCut()")
 	public Object watchTime(ProceedingJoinPoint joinPoint) {
 		long start = System.currentTimeMillis();
 		String joinPointShortString = joinPoint.getSignature().toShortString();
