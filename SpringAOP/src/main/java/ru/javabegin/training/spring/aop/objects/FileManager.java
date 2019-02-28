@@ -9,8 +9,12 @@ import java.util.TreeSet;
 
 import org.springframework.stereotype.Component;
 
+import ru.javabegin.training.spring.aop.annotations.ShowResults;
+import ru.javabegin.training.spring.aop.annotations.ShowTime;
+
 @Component
 public class FileManager {
+	@ShowResults
 	public Set<String> getExtensionList(String folder) {
 		File dir = new File(folder);
 
@@ -30,6 +34,8 @@ public class FileManager {
 
 	}
 
+	@ShowTime
+	@ShowResults
 	public Map<String, Integer> getExtensionCount(String folder) {
 
 		File dir = new File(folder);

@@ -20,7 +20,7 @@ public class MyLogger {
 	private void watchtimeCut() {
 	}
 
-	@AfterReturning(pointcut = "watchtimeCut()", returning = "obj")
+	@AfterReturning(pointcut = "watchtimeCut() && @annotation(ru.javabegin.training.spring.aop.annotations.ShowResults)", returning = "obj")
 	public void printValue(Object obj) {
 		if (obj instanceof Map) {
 			Map map = (Map) obj;
@@ -42,7 +42,7 @@ public class MyLogger {
 		logger.error("Exeption name: " + e.toString());
 	}
 
-	@Around("watchtimeCut()")
+	@Around("watchtimeCut() && @annotation(ru.javabegin.training.spring.aop.annotations.ShowTime)")
 	public Object watchTime(ProceedingJoinPoint joinPoint) {
 		long start = System.currentTimeMillis();
 		String joinPointShortString = joinPoint.getSignature().toShortString();
