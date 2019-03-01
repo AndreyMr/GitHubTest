@@ -11,10 +11,13 @@ import org.springframework.stereotype.Component;
 
 import ru.javabegin.training.spring.aop.annotations.ShowResults;
 import ru.javabegin.training.spring.aop.annotations.ShowTime;
+import ru.javabegin.training.spring.aop.interfaces.Manager;
 
 @Component
-public class FileManager {
+public class FileManager implements Manager {
+	@ShowTime
 	@ShowResults
+	@Override
 	public Set<String> getExtensionList(String folder) {
 		File dir = new File(folder);
 
@@ -36,6 +39,7 @@ public class FileManager {
 
 	@ShowTime
 	@ShowResults
+	@Override
 	public Map<String, Integer> getExtensionCount(String folder) {
 
 		File dir = new File(folder);

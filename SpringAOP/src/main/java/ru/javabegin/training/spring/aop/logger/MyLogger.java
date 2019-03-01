@@ -1,6 +1,7 @@
 package ru.javabegin.training.spring.aop.logger;
 
 import java.util.Map;
+import java.util.Set;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -16,17 +17,26 @@ import org.springframework.stereotype.Component;
 public class MyLogger {
 	private static final Logger logger = LoggerFactory.getLogger(MyLogger.class.getSimpleName());
 
-	@Pointcut("execution(* *(..)) && within(ru.javabegin.training.spring.aop.objects.*)")
+	@Pointcut("execution(* ru.javabegin.training.spring.aop.interfaces.Manager.*(..))")
 	private void watchtimeCut() {
 	}
 
-	@AfterReturning(pointcut = "watchtimeCut() && @annotation(ru.javabegin.training.spring.aop.annotations.ShowResults)", returning = "obj")
-	public void printValue(Object obj) {
-		if (obj instanceof Map) {
-			Map map = (Map) obj;
-			for (Object mapKeySet : map.keySet()) {
-				logger.info("key: " + mapKeySet + ", " + map.get(mapKeySet));
-			}
+	@AfterReturning(pointcut = "execution(java.util.Map *(String)) && args(folder) && @annotation(ru.javabegin.training.spring.aop.annotations.ShowResults)", returning = "obj")
+	public void printMap(Object obj, String folder) {
+		Map<?, ?> map = (Map<?, ?>) obj;
+		logger.info("Printing Map with path " + folder);
+
+		for (Object mapKeySet : map.keySet()) {
+			logger.info("key: " + mapKeySet + ", " + map.get(mapKeySet));
+		}
+	}
+
+	@AfterReturning(pointcut = "execution(java.util.Set *(String)) && args(folder) && @annotation(ru.javabegin.training.spring.aop.annotations.ShowResults)", returning = "obj")
+	public void printSet(Object obj, String folder) {
+		Set<?> set = (Set<?>) obj;
+		logger.info("Printing Set with path " + folder);
+		for (Object object : set) {
+			logger.info(object.toString());
 		}
 	}
 
@@ -42,7 +52,7 @@ public class MyLogger {
 		logger.error("Exeption name: " + e.toString());
 	}
 
-	@Around("watchtimeCut() && @annotation(ru.javabegin.training.spring.aop.annotations.ShowTime)")
+	@Around("watchtimeCut() && @annotation(ru.javabegin.training.spring.aop.annotations.ShowTime) && execution(java.util.Map *(..))")
 	public Object watchTime(ProceedingJoinPoint joinPoint) {
 		long start = System.currentTimeMillis();
 		String joinPointShortString = joinPoint.getSignature().toShortString();
@@ -52,7 +62,8 @@ public class MyLogger {
 			logger.info("Method params: " + object);
 		}
 		try {
-			output = joinPoint.proceed();
+			// возможно подменить аргумент во время исполнения
+			output = joinPoint.proceed(new Object[] { "C:\\Windows" });
 		} catch (Throwable e) {
 			logger.error(e.getMessage());
 		}
