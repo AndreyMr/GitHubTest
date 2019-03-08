@@ -1,11 +1,12 @@
 package ru.springtest.dao.interfaces;
 
 import java.util.List;
+import java.util.Map;
 
 import ru.springtest.dao.objects.MP3;
 
 public interface MP3Dao {
-	void insert(MP3 mp3);
+	int insert(MP3 mp3);
 
 	void delete(MP3 mp3);
 
@@ -18,5 +19,7 @@ public interface MP3Dao {
 	List<MP3> getListMP3ByName(String name);
 
 	List<MP3> getListMP3ByAuthor(String author);
+
+	Map<String, Integer> getStat();
 
 }

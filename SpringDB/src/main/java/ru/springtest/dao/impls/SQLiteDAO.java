@@ -6,14 +6,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
 import ru.springtest.dao.interfaces.MP3Dao;
@@ -31,17 +37,20 @@ public class SQLiteDAO implements MP3Dao {
 	}
 
 	@Override
-	public void insert(MP3 mp3) {
+	public int insert(MP3 mp3) {
 		String sql = "insert into mp3 (name, author) VALUES (:name, :author)";
+		// предоставляет ID вставленной записи
+		KeyHolder keyholder = new GeneratedKeyHolder();
 
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("name", mp3.getName());
 		params.addValue("author", mp3.getAuthor());
 
-		jdbcTemplate.update(sql, params);
-
+		jdbcTemplate.update(sql, params, keyholder);
+		return keyholder.getKey().intValue();
 	}
 
+	// метод вставки для работы напрямую с JDBC драйвером
 	public void insertWithJDBC(MP3 mp3) {
 
 		Connection conn = null;
@@ -81,8 +90,6 @@ public class SQLiteDAO implements MP3Dao {
 	@Override
 	public void delete(MP3 mp3) {
 		deleteMP3ByID(mp3.getID());
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -131,8 +138,6 @@ public class SQLiteDAO implements MP3Dao {
 		for (MP3 mp3 : mp3List) {
 			insert(mp3);
 		}
-		// TODO Auto-generated method stub
-
 	}
 
 	private static final class MP3RowMapper implements RowMapper<MP3> {
@@ -148,4 +153,22 @@ public class SQLiteDAO implements MP3Dao {
 
 	}
 
+	@Override
+	public Map<String, Integer> getStat() {
+		String sql = "select author, count(*) as count from mp3 group by author";
+
+		return jdbcTemplate.query(sql, new ResultSetExtractor<Map<String, Integer>>() {
+
+			@Override
+			public Map<String, Integer> extractData(ResultSet rs) throws SQLException, DataAccessException {
+				Map<String, Integer> map = new TreeMap<>();
+				while (rs.next()) {
+					String author = rs.getString("author");
+					int count = rs.getInt("count");
+					map.put(author, count);
+				}
+				return map;
+			};
+		});
+	}
 }

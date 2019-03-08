@@ -3,6 +3,7 @@ package ru.springtest.dao.impls;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -25,12 +26,6 @@ public class MySQLDAO implements MP3Dao {
 	@Qualifier("dataSourceMySQL")
 	public void setDataSource(DataSource dataSource) {
 		this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
-	}
-
-	@Override
-	public void insert(MP3 mp3) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -84,6 +79,18 @@ public class MySQLDAO implements MP3Dao {
 			return mp3;
 		}
 
+	}
+
+	@Override
+	public int insert(MP3 mp3) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Map<String, Integer> getStat() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

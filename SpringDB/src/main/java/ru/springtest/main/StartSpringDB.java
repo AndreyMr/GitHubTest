@@ -18,7 +18,7 @@ public class StartSpringDB {
 		ApplicationContext context = new ClassPathXmlApplicationContext("context.xml");
 		SQLiteDAO sqlLiteDao = context.getBean(SQLiteDAO.class);
 		// MySQLDAO mySQLDAO = context.getBean(MySQLDAO.class);
-		sqlLiteDao.insert(mp3);
+		// sqlLiteDao.insert(mp3);
 		MP3 result = sqlLiteDao.getMP3ByID(2);
 
 		System.out.println(result.getName() + " " + result.getAuthor());
@@ -27,6 +27,7 @@ public class StartSpringDB {
 		 * List<MP3> list = sqlLiteDao.getListMP3ByAuthor("Linkin Park");
 		 * printList(list);
 		 */
+		System.out.println(sqlLiteDao.getStat());
 
 	}
 
