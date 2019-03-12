@@ -1,0 +1,21 @@
+CREATE TABLE [author](
+  [ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
+  [name] VARCHAR NOT NULL);
+
+CREATE TABLE [MP3](
+  [ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
+  [name] VARCHAR(100) NOT NULL, 
+  [author_id] INTEGER REFERENCES [author] ON DELETE SET NULL);
+
+CREATE VIEW [all_mp3_info]
+AS
+SELECT 
+       [a].[name] AS [author_name], 
+       [a].[id] AS [author_id], 
+       [m].[name] AS [mp3_name], 
+       [m].[id] AS [mp3_id]
+FROM   [mp3] [m]
+       INNER JOIN [author] [a] ON [m].[author_id] = [a].[id];
+
+CREATE INDEX [] ON [MP3]([ID]);
+

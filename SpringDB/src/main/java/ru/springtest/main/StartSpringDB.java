@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import ru.springtest.dao.impls.MySQLDAO;
 import ru.springtest.dao.impls.SQLiteDAO;
 import ru.springtest.dao.objects.MP3;
 
@@ -26,10 +27,14 @@ public class StartSpringDB {
 
 		ApplicationContext context = new ClassPathXmlApplicationContext("context.xml");
 		SQLiteDAO sqlLiteDao = context.getBean(SQLiteDAO.class);
-		System.out.println(sqlLiteDao.getStat());
-		// sqlLiteDao.insert(mp3sound1);
-		sqlLiteDao.insertMP3ByList(mp3List);
-		System.out.println(sqlLiteDao.getStat());
+		/*
+		 * System.out.println(sqlLiteDao.getStat()); // sqlLiteDao.insert(mp3sound1);
+		 * sqlLiteDao.insertMP3ByList(mp3List);
+		 * System.out.println(sqlLiteDao.getStat());
+		 */
+		MySQLDAO mySQLDAO = context.getBean(MySQLDAO.class);
+		MP3 mp3 = mySQLDAO.getMP3ByID(2);
+		System.out.println(mp3.getAuthor());
 	}
 
 	public static void printList(List<MP3> mp3list) {
