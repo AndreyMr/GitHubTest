@@ -1,5 +1,6 @@
 package ru.springtest.main;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.context.ApplicationContext;
@@ -11,24 +12,24 @@ import ru.springtest.dao.objects.MP3;
 public class StartSpringDB {
 
 	public static void main(String[] args) {
-		MP3 mp3 = new MP3();
-		mp3.setName("Игорь Николаев");
-		mp3.setAuthor("Игорь Николаев");
+		MP3 mp3sound1 = new MP3();
+		mp3sound1.setName("SoundName_1");
+		mp3sound1.setAuthor("SoundAuthor_1");
+
+		MP3 mp3sound2 = new MP3();
+		mp3sound2.setName("SoundName_2");
+		mp3sound2.setAuthor("SoundAuthor_2");
+
+		List<MP3> mp3List = new ArrayList<>();
+		mp3List.add(mp3sound1);
+		mp3List.add(mp3sound2);
 
 		ApplicationContext context = new ClassPathXmlApplicationContext("context.xml");
 		SQLiteDAO sqlLiteDao = context.getBean(SQLiteDAO.class);
-		// MySQLDAO mySQLDAO = context.getBean(MySQLDAO.class);
-		// sqlLiteDao.insert(mp3);
-		MP3 result = sqlLiteDao.getMP3ByID(2);
-
-		System.out.println(result.getName() + " " + result.getAuthor());
-
-		/*
-		 * List<MP3> list = sqlLiteDao.getListMP3ByAuthor("Linkin Park");
-		 * printList(list);
-		 */
 		System.out.println(sqlLiteDao.getStat());
-
+		// sqlLiteDao.insert(mp3sound1);
+		sqlLiteDao.insertMP3ByList(mp3List);
+		System.out.println(sqlLiteDao.getStat());
 	}
 
 	public static void printList(List<MP3> mp3list) {

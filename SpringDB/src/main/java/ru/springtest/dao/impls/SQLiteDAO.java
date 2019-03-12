@@ -18,8 +18,9 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Component;
 
 import ru.springtest.dao.interfaces.MP3Dao;
@@ -28,26 +29,33 @@ import ru.springtest.dao.objects.MP3;
 @Component("sqliteDAO")
 public class SQLiteDAO implements MP3Dao {
 
+	private SimpleJdbcInsert insertMP3;
 	private NamedParameterJdbcTemplate jdbcTemplate;
+	private DataSource dataSourse;
 
 	@Autowired
 	@Qualifier("dataSourceSQlite")
 	public void setDataSource(DataSource dataSource) {
 		this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+		this.dataSourse = dataSource;
+		this.insertMP3 = new SimpleJdbcInsert(dataSource).withTableName("MP3").usingColumns("name", "author");
 	}
 
 	@Override
 	public int insert(MP3 mp3) {
-		String sql = "insert into mp3 (name, author) VALUES (:name, :author)";
-		// предоставляет ID вставленной записи
-		KeyHolder keyholder = new GeneratedKeyHolder();
+
+		/*
+		 * String sql = "insert into mp3 (name, author) VALUES (:name, :author)"; //
+		 * предоставляет ID вставленной записи KeyHolder keyholder = new
+		 * GeneratedKeyHolder(); jdbcTemplate.update(sql, params, keyholder); return
+		 * keyholder.getKey().intValue();
+		 */
 
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("name", mp3.getName());
 		params.addValue("author", mp3.getAuthor());
+		return insertMP3.execute(params);
 
-		jdbcTemplate.update(sql, params, keyholder);
-		return keyholder.getKey().intValue();
 	}
 
 	// метод вставки для работы напрямую с JDBC драйвером
@@ -135,9 +143,10 @@ public class SQLiteDAO implements MP3Dao {
 
 	@Override
 	public void insertMP3ByList(List<MP3> mp3List) {
-		for (MP3 mp3 : mp3List) {
-			insert(mp3);
-		}
+		// вставка листа через batchUpdate
+		String sql = "insert into MP3 (name, author) VALUES (:name, :author)";
+		SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(mp3List.toArray());
+		jdbcTemplate.batchUpdate(sql, batch);
 	}
 
 	private static final class MP3RowMapper implements RowMapper<MP3> {
