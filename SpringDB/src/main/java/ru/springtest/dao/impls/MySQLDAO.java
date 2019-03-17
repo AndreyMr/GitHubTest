@@ -87,7 +87,7 @@ public class MySQLDAO implements MP3Dao {
 	}
 
 	@Override
-	public int insert(MP3 mp3) {
+	public int insertMP3(MP3 mp3) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -96,6 +96,12 @@ public class MySQLDAO implements MP3Dao {
 	public Map<String, Integer> getStat() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public int insertAuthor(Author author) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

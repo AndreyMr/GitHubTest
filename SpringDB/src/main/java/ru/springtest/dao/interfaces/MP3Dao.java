@@ -3,10 +3,13 @@ package ru.springtest.dao.interfaces;
 import java.util.List;
 import java.util.Map;
 
+import ru.springtest.dao.objects.Author;
 import ru.springtest.dao.objects.MP3;
 
 public interface MP3Dao {
-	int insert(MP3 mp3);
+	int insertMP3(MP3 mp3);
+
+	int insertAuthor(Author author);
 
 	void delete(MP3 mp3);
 

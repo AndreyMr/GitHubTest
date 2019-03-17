@@ -20,7 +20,7 @@ public class StartSpringDB {
 
 		ApplicationContext context = new ClassPathXmlApplicationContext("context.xml");
 		SQLiteDAO sqlLiteDao = context.getBean(SQLiteDAO.class);
-		sqlLiteDao.insert(mp3);
+		sqlLiteDao.insertMP3(mp3);
 
 		System.out.println(sqlLiteDao.getStat());
 
