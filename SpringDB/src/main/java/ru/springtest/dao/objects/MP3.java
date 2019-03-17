@@ -2,7 +2,7 @@ package ru.springtest.dao.objects;
 
 public class MP3 {
 	private String name;
-	private String author;
+	private Author author;
 	private int ID;
 
 	public int getID() {
@@ -21,11 +21,11 @@ public class MP3 {
 		this.name = name;
 	}
 
-	public String getAuthor() {
+	public Author getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(String author) {
+	public void setAuthor(Author author) {
 		this.author = author;
 	}
 

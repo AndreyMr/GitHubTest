@@ -15,6 +15,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import ru.springtest.dao.interfaces.MP3Dao;
+import ru.springtest.dao.objects.Author;
 import ru.springtest.dao.objects.MP3;
 
 @Component("mysqlDAO")
@@ -72,10 +73,14 @@ public class MySQLDAO implements MP3Dao {
 
 		@Override
 		public MP3 mapRow(ResultSet rs, int rowNum) throws SQLException {
+			Author author = new Author();
+			author.setId(rs.getInt("author_id"));
+			author.setName("author_name");
+
 			MP3 mp3 = new MP3();
-			mp3.setID(rs.getInt("id"));
-			mp3.setName(rs.getString("name"));
-			mp3.setAuthor(rs.getString("author"));
+			mp3.setID(rs.getInt("mp3_id"));
+			mp3.setName(rs.getString("mp3_name"));
+			mp3.setAuthor(author);
 			return mp3;
 		}
 
