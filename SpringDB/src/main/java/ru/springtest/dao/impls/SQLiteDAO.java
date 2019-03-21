@@ -21,7 +21,6 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import ru.springtest.dao.interfaces.MP3Dao;
 import ru.springtest.dao.objects.Author;
@@ -52,7 +51,7 @@ public class SQLiteDAO implements MP3Dao {
 		 * GeneratedKeyHolder(); jdbcTemplate.update(sql, params, keyholder); return
 		 * keyholder.getKey().intValue();
 		 */
-		System.out.println(TransactionSynchronizationManager.isActualTransactionActive());
+		// System.out.println(TransactionSynchronizationManager.isActualTransactionActive());
 		String sqlQueryAddMp3 = "insert into mp3 (name, author_id) VALUES (:mp3name, :author_id)";
 
 		MapSqlParameterSource paramsAddMp3 = new MapSqlParameterSource();
@@ -90,7 +89,7 @@ public class SQLiteDAO implements MP3Dao {
 	@Override
 
 	public int insertAuthor(Author author) {
-		System.out.println(TransactionSynchronizationManager.isActualTransactionActive());
+		// System.out.println(TransactionSynchronizationManager.isActualTransactionActive());
 		String sqlQueryAddAuthor = "insert into author (name) VALUES (:authorname)";
 
 		MapSqlParameterSource paramsAddAuthor = new MapSqlParameterSource();
