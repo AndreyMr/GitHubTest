@@ -11,7 +11,8 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	<context:component-scan
 		base-package="ru.springtest.*" />
-		<tx:annotation-driven proxy-target-class="true" transaction-manager="transactionManager" />
+	<tx:annotation-driven proxy-target-class="true"
+		transaction-manager="transactionManager" />
 
 	<bean
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
@@ -24,14 +25,27 @@
 
 	<bean name="dataSourceMySQL"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/springdb" />
+		<property name="driverClassName"
+			value="com.mysql.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/springdb" />
 		<property name="username" value="root" />
 		<property name="password" value="root" />
 	</bean>
+
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSourceSQlite" />
 	</bean>
+	<tx:advice id="adviceTransaction"
+		transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="insert*" propagation="REQUIRED"
+				read-only="false" isolation="SERIALIZABLE" />
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<aop:advisor advice-ref="adviceTransaction" pointcut="execution(* ru.springtest.dao.impls.*.*(..))"/>	
+	</aop:config>
 
 </beans>
