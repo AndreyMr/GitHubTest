@@ -21,4 +21,13 @@ public class LoginController {
 		return new ModelAndView("loginresult", "user", user);
 	}
 
+	@RequestMapping(value = "/failed", method = RequestMethod.GET)
+	public ModelAndView failed(@ModelAttribute("user") User user) {
+		ModelAndView model = new ModelAndView("login-failed");
+		User checkUser = user;
+		model.addObject("message", "Login failed!");
+		model.addObject("user", checkUser);
+		return model;
+	}
+
 }

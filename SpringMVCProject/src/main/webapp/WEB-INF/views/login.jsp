@@ -19,12 +19,15 @@
 			<form:input path="name" />
 
 			<form:label path="password">Password:</form:label>
-			<form:password path="password"/>
+			<form:password path="password"/>			
 
 		</fieldset>
 
-		<footer> <label><input type="checkbox" tabindex="3">Keep me logged in</label> 
-			<input type="submit" class="btnLogin" value="Login" tabindex="4"> 
+		<footer> 		
+		 <form:checkbox path="admin"/>
+			<form:label path="admin">Admin</form:label>
+			<input type="submit" class="btnLogin" value="Login" tabindex="4"> 		
+			
 		</footer>
 
 	</form:form>
