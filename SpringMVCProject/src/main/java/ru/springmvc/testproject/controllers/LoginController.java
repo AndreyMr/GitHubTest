@@ -1,6 +1,10 @@
 package ru.springmvc.testproject.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,17 +21,17 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/check-user", method = RequestMethod.POST)
-	public ModelAndView checkUser(@ModelAttribute("user") User user) {
-		return new ModelAndView("loginresult", "user", user);
+	public String checkUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors())
+			return "login";
+		model.addAttribute("user", user);
+		return "loginresult";
 	}
 
 	@RequestMapping(value = "/failed", method = RequestMethod.GET)
-	public ModelAndView failed(@ModelAttribute("user") User user) {
-		ModelAndView model = new ModelAndView("login-failed");
-		User checkUser = user;
-		model.addObject("message", "Login failed!");
-		model.addObject("user", checkUser);
-		return model;
+	public String failed(@ModelAttribute("user") User user, Model model) {
+		model.addAttribute("message", "Login failed!");
+		return "login-failed";
 	}
 
 }

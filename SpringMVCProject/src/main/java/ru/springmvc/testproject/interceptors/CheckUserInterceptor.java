@@ -17,8 +17,8 @@ public class CheckUserInterceptor extends HandlerInterceptorAdapter {
 			User user = (User) modelAndView.getModel().get("user");
 			if (user == null || !user.isAdmin()) {
 				long finishTime = System.currentTimeMillis() - starttime;
-
-				user.setTime(finishTime);
+				modelAndView.addObject("finishTime", finishTime);
+				// user.setTime(finishTime);
 				response.sendRedirect(request.getContextPath() + "/failed");
 			}
 

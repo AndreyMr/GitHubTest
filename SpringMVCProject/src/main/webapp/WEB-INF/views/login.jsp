@@ -17,9 +17,11 @@
 
 			<form:label path="name">Name:</form:label>
 			<form:input path="name" />
+			<form:errors path="name" cssClass="error"/>
 
 			<form:label path="password">Password:</form:label>
-			<form:password path="password"/>			
+			<form:password path="password"/>
+			<form:errors path="password" cssClass="error"/>			
 
 		</fieldset>
 

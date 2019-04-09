@@ -1,7 +1,11 @@
 package ru.springmvc.testproject.objects;
 
+import javax.validation.constraints.Size;
+
 public class User {
+	@Size(min = 6, message = "Имя должно быть больше 6 знаков")
 	private String name;
+	@Size(min = 5, max = 10, message = "Пароль должен быть от 5 до 10 знаков")
 	private String password;
 	private boolean admin;
 	private long time;

@@ -8,7 +8,7 @@
 </head>
 <body>
 <p>Message: ${message}</p>
-<p>Time result: ${user.time} ms</p>
+<p>Time result: ${finishTime} ms</p>
 <hr />
 
 <form action="/SpringMVC" method="post">
