@@ -14,6 +14,15 @@ public class User {
 	private boolean admin;
 	private long time;
 
+	public User() {
+		super();
+	}
+
+	public User(String name) {
+		super();
+		this.name = name;
+	}
+
 	public long getTime() {
 		return time;
 	}

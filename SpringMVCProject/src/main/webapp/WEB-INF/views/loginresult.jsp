@@ -13,7 +13,7 @@
 <p><spring:message code = "loginresult_name" /> ${user.name}</p>
 <p><spring:message code = "loginresult_password" /> ${user.password}</p>
 <p><spring:message code = "admin"/> ${user.admin}</p>
-<p>${locale}</p>
+<p><spring:message code = "locale"/> ${locale}</p>
 <hr />
 
 <form action="/SpringMVC" method="post">
