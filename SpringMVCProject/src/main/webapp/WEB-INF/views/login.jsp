@@ -15,6 +15,11 @@
 		<form:form method="POST" modelAttribute="user" action="check-user" class="box login">
 
 		<fieldset class="boxBody">
+		
+		<span style="float: right;">
+		<a href="?lang=en" >en</a>
+		<a href="?lang=ru">ru</a>		
+		</span>
 
 			<form:label path="name"><spring:message code="username"/>:</form:label>
 			<form:input path="name" />
@@ -29,7 +34,7 @@
 		<footer> 		
 		 <form:checkbox path="admin"/>
 			<form:label path="admin"><spring:message code  = "admin"/></form:label>
-			<input type="submit" class="btnLogin" value="Login" tabindex="4"> 		
+			<input type="submit" class="btnLogin" value=<spring:message code = "button_login"/> tabindex="4"> 		
 			
 		</footer>
 

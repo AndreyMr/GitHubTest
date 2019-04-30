@@ -13,7 +13,7 @@
 <hr />
 
 <form action="/SpringMVC" method="post">
-		<input type="submit" value="Назад" />
+		<input type="submit" value= <spring:message code = "button_back"/> />
 </form>
 </body>
 </html>

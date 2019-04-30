@@ -1,9 +1,14 @@
 package ru.springmvc.testproject.controllers;
 
+import java.util.Locale;
+
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -22,18 +27,26 @@ import ru.springmvc.testproject.objects.User;
 @Controller
 public class LoginController {
 	Logger loger = LoggerFactory.getLogger(LoginController.class);
+	@Autowired
+	private MessageSource messageSource;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView main() {
+	public ModelAndView main(@ModelAttribute User user, HttpSession session, Locale locale) {
+		System.out.println(locale.getDisplayLanguage());
+		System.out.println(messageSource.getMessage("locale", new String[] { locale.getDisplayName(locale) }, locale));
 		return new ModelAndView("login", "user", new User());
 	}
 
 	@RequestMapping(value = "/check-user", method = RequestMethod.POST)
-	public String checkUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
-		if (bindingResult.hasErrors())
-			return "login";
-		// model.addAttribute("user", user);
-		return "loginresult";
+	public ModelAndView checkUser(Locale locale, @Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("locale", messageSource.getMessage("locale", new String[] { locale.getDisplayName(locale) }, locale));
+		if (bindingResult.hasErrors()) {
+			modelAndView.setViewName("login");
+		} else {
+			modelAndView.setViewName("loginresult");
+		}
+		return modelAndView;
 	}
 
 	@RequestMapping(value = "/failed", method = RequestMethod.GET)

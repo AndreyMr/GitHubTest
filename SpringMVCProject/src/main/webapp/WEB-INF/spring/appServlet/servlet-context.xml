@@ -31,12 +31,19 @@
 		<beans:property name="basename" value="/WEB-INF/locales/messages" />
 		<beans:property name="defaultEncoding" value="UTF-8" />
 	</beans:bean>
+	
+	<beans:bean id  = "localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+		<beans:property name="paramName" value="lang"/>
+	</beans:bean>
+	
+	<beans:bean id = "localeResolver" class = "org.springframework.web.servlet.i18n.SessionLocaleResolver">
+	<beans:property name="defaultLocale" value="ru"/>
+	</beans:bean>
 
 	<interceptors>
 		<interceptor>
-			<mapping path="/*" />
-			<beans:bean
-				class="ru.springmvc.testproject.interceptors.CheckUserInterceptor" />
+			<mapping path="/*" />			
+			<beans:ref bean="localeChangeInterceptor"/>
 		</interceptor>
 	</interceptors>
 

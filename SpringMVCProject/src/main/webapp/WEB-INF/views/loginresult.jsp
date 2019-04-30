@@ -11,12 +11,13 @@
 </head>
 <body>
 <p><spring:message code = "loginresult_name" /> ${user.name}</p>
-<p><spring:message code="loginresult_password" /> ${user.password}</p>
-<p><spring:message code="admin"/> ${user.admin}</p>
+<p><spring:message code = "loginresult_password" /> ${user.password}</p>
+<p><spring:message code = "admin"/> ${user.admin}</p>
+<p>${locale}</p>
 <hr />
 
 <form action="/SpringMVC" method="post">
-		<input type="submit" value="Назад" />
+		<input type="submit" value= <spring:message code = "button_back"/> />
 </form>
 
 </body>
