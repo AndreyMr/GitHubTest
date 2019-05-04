@@ -1,5 +1,10 @@
 package ru.springmvc.testproject.controllers;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Locale;
 import java.util.Map;
 
@@ -23,19 +28,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 import org.springframework.web.servlet.view.RedirectView;
 
+import ru.springmvc.testproject.objects.UploadedFile;
 import ru.springmvc.testproject.objects.User;
+import ru.springmvc.testproject.validators.FileValidator;
 
 @Controller
-@SessionAttributes("user")
+
+@SessionAttributes("filename")
 public class LoginController {
 	Logger loger = LoggerFactory.getLogger(LoginController.class);
 	@Autowired
 	private MessageSource messageSource;
+	@Autowired
+	private FileValidator fileValidator;
 
 	@ModelAttribute
 	public User createNewUser() {
@@ -67,6 +78,57 @@ public class LoginController {
 		}
 
 		return modelAndView;
+	}
+
+	@RequestMapping("/fileUpload")
+	public ModelAndView fileUploaded(@ModelAttribute("uploadedFile") UploadedFile uploadedFile, BindingResult bindingResult) {
+
+		ModelAndView modelAndView = new ModelAndView();
+		MultipartFile file = uploadedFile.getFile();
+
+		fileValidator.validate(file, bindingResult);
+
+		if (bindingResult.hasErrors()) {
+			modelAndView.setViewName("loginresult");
+		} else {
+
+			String fileName = file.getOriginalFilename();
+			InputStream inputStream = null;
+			OutputStream outputStream = null;
+			try {
+				inputStream = file.getInputStream();
+
+				File newFile = new File("F:/JavaProject/files/" + fileName);
+				if (!newFile.exists()) {
+					newFile.createNewFile();
+				}
+				outputStream = new FileOutputStream(newFile);
+				int read = 0;
+				byte[] bytes = new byte[1024];
+
+				while ((read = inputStream.read(bytes)) != -1)
+					outputStream.write(bytes, 0, read);
+				loger.info("Writing file: " + newFile.getAbsolutePath());
+				// close stream
+				inputStream.close();
+				outputStream.close();
+
+				RedirectView redirectView = new RedirectView("fileuploadresult");
+				redirectView.setStatusCode(HttpStatus.FOUND);
+				modelAndView.setView(redirectView);
+				modelAndView.addObject("filename", fileName);
+
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/fileuploadresult", method = RequestMethod.GET)
+	public String fileUploadResult() {
+		return "fileuploadresult";
 	}
 
 	@RequestMapping(value = "/mainpage", method = RequestMethod.GET)
