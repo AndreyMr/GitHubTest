@@ -34,6 +34,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 import org.springframework.web.servlet.view.RedirectView;
 
+import ru.springmvc.testproject.exceptions.BadFileNameException;
 import ru.springmvc.testproject.objects.UploadedFile;
 import ru.springmvc.testproject.objects.User;
 import ru.springmvc.testproject.validators.FileValidator;
@@ -81,7 +82,7 @@ public class LoginController {
 	}
 
 	@RequestMapping("/fileUpload")
-	public ModelAndView fileUploaded(@ModelAttribute("uploadedFile") UploadedFile uploadedFile, BindingResult bindingResult) {
+	public ModelAndView fileUploaded(@ModelAttribute("uploadedFile") UploadedFile uploadedFile, BindingResult bindingResult) throws IOException, BadFileNameException {
 
 		ModelAndView modelAndView = new ModelAndView();
 		MultipartFile file = uploadedFile.getFile();
@@ -122,9 +123,28 @@ public class LoginController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			// throw new IOException("File not found");
+			throw new BadFileNameException("Bad filename: " + fileName);
 		}
+
 		return modelAndView;
 	}
+
+	// перехват исключения с помощью аннотации @ExceptionHandler и вывод результатов
+	// с помощью сервера приложений
+	/*
+	 * @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason =
+	 * "IOException exception! Check argument")
+	 * 
+	 * @ExceptionHandler(IOException.class) public void handleIOException() {
+	 * loger.error("IOExceptoin handler executed"); }
+	 * 
+	 * @ExceptionHandler(BadFileNameException.class) public ModelAndView
+	 * hendleBadFileNameException(Exception ex) {
+	 * loger.error("badFileNameException execute"); ModelAndView modelAndView = new
+	 * ModelAndView("error"); modelAndView.addObject("error", ex.getMessage());
+	 * return modelAndView; }
+	 */
 
 	@RequestMapping(value = "/fileuploadresult", method = RequestMethod.GET)
 	public String fileUploadResult() {
