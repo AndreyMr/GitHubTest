@@ -37,6 +37,7 @@
    </table>    
   </form:form>
 <br/>
+<h3><a href="downloadPDF">Download PDF Document</a></h3>
 <form action="/SpringMVC" method="post">
 		<input type="submit" value= <spring:message code = "button_back"/> />
 </form>

@@ -41,7 +41,7 @@ import ru.springmvc.testproject.validators.FileValidator;
 
 @Controller
 
-@SessionAttributes("filename")
+@SessionAttributes("user")
 public class LoginController {
 	Logger loger = LoggerFactory.getLogger(LoginController.class);
 	@Autowired
@@ -160,6 +160,11 @@ public class LoginController {
 			loger.info("Update!");
 		}
 		return "loginresult";
+	}
+
+	@RequestMapping(value = "/downloadPDF", method = RequestMethod.GET)
+	public ModelAndView downloadPDF() {
+		return new ModelAndView("pdfView");
 	}
 
 	@RequestMapping(value = "/failed", method = RequestMethod.GET)
