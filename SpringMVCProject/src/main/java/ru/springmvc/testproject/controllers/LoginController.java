@@ -167,6 +167,13 @@ public class LoginController {
 		return new ModelAndView("pdfView");
 	}
 
+	@RequestMapping(value = "/downloadExcel", method = RequestMethod.GET)
+	public ModelAndView downloadExcel() {
+
+		// return a view which will be resolved by an excel view resolver
+		return new ModelAndView("excelView");
+	}
+
 	@RequestMapping(value = "/failed", method = RequestMethod.GET)
 	public String failed(@ModelAttribute("user") User user, Model model) {
 		model.addAttribute("message", "Login failed!");
