@@ -65,8 +65,6 @@ public class LoginController {
 	public ModelAndView checkUser(Locale locale, @Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model, RedirectAttributes reAttributes) {
 
 		ModelAndView modelAndView = new ModelAndView();
-		// modelAndView.addObject("locale", messageSource.getMessage("locale", new
-		// String[] { locale.getDisplayName(locale) }, locale));
 
 		if (!bindingResult.hasErrors()) {
 			RedirectView redirectView = new RedirectView("mainpage");
@@ -176,7 +174,7 @@ public class LoginController {
 
 	@RequestMapping(value = "/failed", method = RequestMethod.GET)
 	public String failed(@ModelAttribute("user") User user, Model model) {
-		model.addAttribute("message", "Login failed!");
+		model.addAttribute("message", "Login Failed!");
 		return "login-failed";
 	}
 

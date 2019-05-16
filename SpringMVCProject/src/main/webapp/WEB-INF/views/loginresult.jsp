@@ -37,8 +37,10 @@
    </table>    
   </form:form>
 <br/>
-<h3><a href="downloadPDF">Download PDF Document</a></h3>
-<h3><a href="downloadExcel">Download Excel Document</a></h3>
+<h3>Use link to create PDF or Excel document</h3>
+<h3><a href="downloadPDF">Download PDF document</a></h3>
+<h3><a href="downloadExcel">Download Excel document</a></h3>
+
 <form action="/SpringMVC" method="post">
 		<input type="submit" value= <spring:message code = "button_back"/> />
 </form>
