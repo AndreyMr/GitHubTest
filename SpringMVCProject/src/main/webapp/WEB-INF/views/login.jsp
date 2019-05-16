@@ -9,7 +9,7 @@
 <link href='<c:url value = "/resources/css/reset.css" />'	rel="stylesheet">
 <link href='<c:url value = "/resources/css/structure.css" />'	rel="stylesheet">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>SpringMVC project</title>
 </head>
 <body>
 		<form:form method="POST" modelAttribute="user" action="check-user" class="box login">
