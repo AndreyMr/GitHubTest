@@ -1,4 +1,4 @@
-package ru.servletproject;
+package ru.servletproject.servlets;
 
 import java.io.IOException;
 

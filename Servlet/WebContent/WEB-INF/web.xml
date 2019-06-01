@@ -4,10 +4,18 @@
  <distributable/>
  <servlet>
   <servlet-name>testservlet</servlet-name>
-  <servlet-class>ru.servletproject.TestServlet</servlet-class>
+  <servlet-class>ru.servletproject.servlets.TestServlet</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>calculate</servlet-name>
+  <servlet-class>ru.servletproject.servlets.Calculate</servlet-class>
  </servlet>
  <servlet-mapping>
   <servlet-name>testservlet</servlet-name>
   <url-pattern>/</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>calculate</servlet-name>
+  <url-pattern>/calc</url-pattern>
  </servlet-mapping>
 </web-app>
