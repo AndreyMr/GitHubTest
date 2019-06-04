@@ -12,10 +12,18 @@
  </servlet>
  <servlet-mapping>
   <servlet-name>testservlet</servlet-name>
-  <url-pattern>/</url-pattern>
+  <url-pattern>/test</url-pattern>
  </servlet-mapping>
  <servlet-mapping>
   <servlet-name>calculate</servlet-name>
   <url-pattern>/calc</url-pattern>
  </servlet-mapping>
+ <error-page>
+  <error-code>404</error-code>
+  <location>/WEB-INF/webpages/error_pages/404_error.html</location>
+ </error-page>
+ <error-page>
+  <error-code>400</error-code>
+  <location>/WEB-INF/webpages/error_pages/400_error.html</location>
+ </error-page>
 </web-app>

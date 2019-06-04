@@ -1,5 +1,6 @@
 package ru.servletproject.servlets.supportobject;
 
+//так себе фабрика конечно, но хоть такая)
 public class OperationFactory {
 	public static Operations getOperations(String operation) {
 		Operations byReturn = null;
