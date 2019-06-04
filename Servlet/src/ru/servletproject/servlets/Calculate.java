@@ -3,6 +3,8 @@ package ru.servletproject.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -27,6 +29,7 @@ public class Calculate extends HttpServlet {
 	public Calculate() {
 		super();
 		// TODO Auto-generated constructor stub
+
 	}
 
 	/**
@@ -35,6 +38,7 @@ public class Calculate extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+
 		ArrayList<String> listOperations;
 		PrintWriter writer = response.getWriter();
 		writer.append("<!DOCTYPE html PUBLIC \\\"-//W3C//DTD XHTML 1.0 Strict//EN\\\" \\r\\n\" + \"  \\\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">");
@@ -65,6 +69,10 @@ public class Calculate extends HttpServlet {
 			// получение результата операции
 			resultCalculate = calculator.calc();
 
+			@SuppressWarnings("unchecked")
+			Map<String, ArrayList<String>> statMap = (Map<String, ArrayList<String>>) getServletContext().getAttribute("statMap");
+			if (statMap == null)
+				statMap = new HashMap<String, ArrayList<String>>();
 			// для новой сессии создаем новый список
 			if (session.isNew()) {
 				listOperations = new ArrayList<>();
@@ -74,7 +82,8 @@ public class Calculate extends HttpServlet {
 			// добавление новой операции в список и атрибут сессии
 			listOperations.add(number1 + " " + operation.toString() + " " + number2 + " = " + resultCalculate);
 			session.setAttribute("formula", listOperations);
-
+			statMap.put(session.getId(), listOperations);
+			getServletContext().setAttribute("statMap", statMap);
 			// вывод всех операций
 			writer.println("<h1>ID вашей сессии равен: " + session.getId() + "</h1>");
 			writer.println("<h3>Список операций (всего:" + listOperations.size() + ") </h3>");

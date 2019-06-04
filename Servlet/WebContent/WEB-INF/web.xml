@@ -10,6 +10,10 @@
   <servlet-name>calculate</servlet-name>
   <servlet-class>ru.servletproject.servlets.Calculate</servlet-class>
  </servlet>
+ <servlet>
+  <servlet-name>statistic</servlet-name>
+  <servlet-class>ru.servletproject.servlets.UserVisitStat</servlet-class>
+ </servlet>
  <servlet-mapping>
   <servlet-name>testservlet</servlet-name>
   <url-pattern>/test</url-pattern>
@@ -17,6 +21,10 @@
  <servlet-mapping>
   <servlet-name>calculate</servlet-name>
   <url-pattern>/calc</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>statistic</servlet-name>
+  <url-pattern>/stat</url-pattern>
  </servlet-mapping>
  <error-page>
   <error-code>404</error-code>
