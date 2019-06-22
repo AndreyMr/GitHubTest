@@ -19,10 +19,11 @@ public class AuthorList {
 		Statement stat;
 		try {
 			stat = conn.createStatement();
-			ResultSet resultSet = stat.executeQuery("SELECT * FROM library.author");
+			ResultSet resultSet = stat.executeQuery("SELECT * FROM library.author ORDER BY fio");
 			while (resultSet.next()) {
 				Author author = new Author();
 				author.setName(resultSet.getString("fio"));
+				author.setId(resultSet.getLong("id"));
 				authorList.add(author);
 			}
 		} catch (SQLException e) {

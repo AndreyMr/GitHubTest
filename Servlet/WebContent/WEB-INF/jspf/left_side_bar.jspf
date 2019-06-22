@@ -1,0 +1,14 @@
+<%@page pageEncoding="UTF-8" %> 
+<div class="sidebar1">
+			<h4 class = "slidebar_title">Список авторов:</h4>
+			<ul class="nav">
+				<jsp:useBean id="authorList"
+					class="ru.servletproject.web.beans.AuthorList" scope="application" />
+				<c:forEach var="author" items="${authorList.getAuthorList()}">
+
+					<li><a href="book.jsp?author_id=${author.id}&name=${author.name}">${author.name}</a></li>
+
+				</c:forEach>
+
+			</ul>			
+		</div>

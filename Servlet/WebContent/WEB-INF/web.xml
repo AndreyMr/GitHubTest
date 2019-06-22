@@ -27,8 +27,17 @@
   <url-pattern>/stat</url-pattern>
  </servlet-mapping>
  <welcome-file-list>
-  <welcome-file>/webpages/jsppages/index.jsp</welcome-file>
+  <welcome-file>/index.jsp</welcome-file>
  </welcome-file-list>
+ <jsp-config>
+  <jsp-property-group>
+   <display-name>header_and_footer</display-name>
+   <url-pattern>/webpages/jsppages/*</url-pattern>
+   <page-encoding>UTF-8</page-encoding>
+   <include-prelude>/WEB-INF/jspf/header.jspf</include-prelude>
+   <include-coda>/WEB-INF/jspf/footer.jspf</include-coda>
+  </jsp-property-group>
+ </jsp-config>
  <resource-ref>
   <res-ref-name>jdbc/Library</res-ref-name>
   <res-type>javax.sql.DataSource</res-type>

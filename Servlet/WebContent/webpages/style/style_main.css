@@ -23,7 +23,9 @@ form{
     width: 80%;
     border-radius: 20px/20px;
     border: none;
-    padding-left: 15px;
+    margin: 5px;
+    margin-right: 15px;
+    padding: 5px
     font-size: 18px;
     box-shadow: 2px 2px 5px rgba(0,0,0,0.82); 
 }
@@ -56,4 +58,44 @@ select{
 }
 .sidebar1{
     margin-left: 20px;
+}
+.slidebar_title{
+    margin-top: 1px;
+}
+li{
+    margin-top: 5px;
+    font-size: 20px;
+}
+footer{
+    opacity: 0.3;
+    position: fixed; /* Фиксированное положение */
+    bottom: 0; /* Левый нижний угол */
+    padding: 10px; /* Поля вокруг текста */
+    background: #96b8e0; /* Цвет фона */    
+    width: 100%; /* Ширина слоя */
+}
+.main_conteyner{
+    display: flex;
+}
+.books_list{
+    margin-left: 30px;
+}
+.book{
+  border-bottom: 1px solid grey;  
+}
+.book_name{    
+    font-size: 14px;
+    padding: 1px;
+    
+    margin-bottom: 4px;
+}
+
+.book_margin{
+    margin-top: 3px;
+    margin-left: 5px;
+}
+.book_attr{
+    font-size: 12px;   
+    margin-bottom: 3px;
+    margin-left: 5px;
 }

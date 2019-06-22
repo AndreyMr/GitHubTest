@@ -1,0 +1,37 @@
+<%@page pageEncoding="UTF-8" %> 
+<%@ page import="ru.servletproject.web.beans.*"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="../style/style_main.css">
+<title>Онлайн библиотека</title>
+</head>
+<body>
+	<div id="header">
+		<div class="logo">
+		</div>
+		<div class="descr">
+			<center>
+				<h1>Добро пожаловать, ${param["username"]}</h1>
+			</center>
+		</div>
+
+	</div>
+	<hr>
+	<br>
+	<div class="container">
+		<div class="header">
+			<form class="search_form" name="search_form" method="POST">
+
+				<input id="src_input" type="text" name="search_String" value=""
+					size="100" /> <input id="src_button" type="submit" value="Поиск"
+					name="search_button" /> <select name="search_option">
+					<option>Название</option>
+					<option>Автор</option>
+				</select>
+			</form>
+		</div>
+		<br> <hr>
+		<div class = "main_conteyner">

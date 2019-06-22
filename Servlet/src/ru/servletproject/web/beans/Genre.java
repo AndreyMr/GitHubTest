@@ -1,8 +1,8 @@
 package ru.servletproject.web.beans;
 
-public class Author {
+public class Genre {
 
-	public Author() {
+	public Genre() {
 
 	}
 
@@ -17,7 +17,7 @@ public class Author {
 		this.id = id;
 	}
 
-	public Author(String name) {
+	public Genre(String name) {
 		super();
 		this.name = name;
 	}
