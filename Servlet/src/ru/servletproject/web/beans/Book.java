@@ -1,7 +1,5 @@
 package ru.servletproject.web.beans;
 
-import java.awt.Image;
-
 public class Book {
 
 	public Book() {
@@ -18,10 +16,10 @@ public class Book {
 	private String author;
 	private int publisherYear;
 	private String publisher;
-	private Image image;
+	private byte[] image;
 	private String descr;
 
-	public Book(String name, byte[] content, int pageCount, String isbn, String genre, String author, int publisherYear, String publisher, Image image, String descr) {
+	public Book(String name, byte[] content, int pageCount, String isbn, String genre, String author, int publisherYear, String publisher, byte[] image, String descr) {
 		super();
 		this.name = name;
 		this.content = content;
@@ -107,11 +105,11 @@ public class Book {
 		this.publisher = publisher;
 	}
 
-	public Image getImage() {
+	public byte[] getImage() {
 		return image;
 	}
 
-	public void setImage(Image image) {
+	public void setImage(byte[] image) {
 		this.image = image;
 	}
 

@@ -14,6 +14,10 @@
   <servlet-name>statistic</servlet-name>
   <servlet-class>ru.servletproject.servlets.UserVisitStat</servlet-class>
  </servlet>
+ <servlet>
+  <servlet-name>showimage</servlet-name>
+  <servlet-class>ru.servletproject.servlets.ShowImage</servlet-class>
+ </servlet>
  <servlet-mapping>
   <servlet-name>testservlet</servlet-name>
   <url-pattern>/test</url-pattern>
@@ -25,6 +29,10 @@
  <servlet-mapping>
   <servlet-name>statistic</servlet-name>
   <url-pattern>/stat</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>showimage</servlet-name>
+  <url-pattern>/showimage</url-pattern>
  </servlet-mapping>
  <welcome-file-list>
   <welcome-file>/index.jsp</welcome-file>

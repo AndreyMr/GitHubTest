@@ -47,7 +47,7 @@ public class BookList {
 		Connection conn = DataBase.getConnection();
 		try {
 			Statement statement = conn.createStatement();
-			ResultSet resultSet = statement.executeQuery("select b.id, b.name, b.isbn, b.page_count, b.publish_year, p.name as publisher, a.fio as author, g.name as genre from book as b\r\n" + "inner join author a on b.author_id = a.id\r\n"
+			ResultSet resultSet = statement.executeQuery("select b.id, b.name, b.isbn, b.page_count, b.publish_year, b.image, p.name as publisher, a.fio as author, g.name as genre from book as b\r\n" + "inner join author a on b.author_id = a.id\r\n"
 					+ "inner join publisher p on b.publisher_id = p.id\r\n" + "inner join genre g on b.genre_id = g.id\r\n" + "where author_id = " + id + " order by b.name limit 0,5");
 			while (resultSet.next()) {
 				Book book = new Book();
@@ -59,6 +59,7 @@ public class BookList {
 				book.setPublisher(resultSet.getString("publisher"));
 				book.setAuthor(resultSet.getString("author"));
 				book.setGenre(resultSet.getString("genre"));
+				book.setImage(resultSet.getBytes("image"));
 				bookList.add(book);
 			}
 		} catch (Exception e) {

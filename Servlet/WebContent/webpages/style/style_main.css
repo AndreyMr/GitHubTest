@@ -81,21 +81,33 @@ footer{
     margin-left: 30px;
 }
 .book{
-  border-bottom: 1px solid grey;  
+  border-bottom: 1px solid grey;
+  display: flex;
+    
 }
 .book_name{    
     font-size: 14px;
-    padding: 1px;
-    
+    padding: 1px;    
     margin-bottom: 4px;
 }
-
+.book_descr{
+    width: 300px;
+}
+.book_image{
+    width: auto;
+    margin: 3px;
+}
+.image_preview{
+    width: 100px;
+}
 .book_margin{
     margin-top: 3px;
-    margin-left: 5px;
+    margin-left: 10px;
 }
 .book_attr{
     font-size: 12px;   
-    margin-bottom: 3px;
-    margin-left: 5px;
+    margin-bottom: 3px;    
+}
+span{
+    font-weight: 600;
 }
