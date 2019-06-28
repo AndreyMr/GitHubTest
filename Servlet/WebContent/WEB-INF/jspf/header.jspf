@@ -14,24 +14,32 @@
 		</div>
 		<div class="descr">
 			<center>
-				<h1>Добро пожаловать, ${param["username"]}</h1>
+				<%
+				String name = "";
+				if (request.getParameter("username") !=null) name = request.getParameter("username");
+				else {
+					name = (String)request.getSession().getAttribute("username");
+				}
+				%>
+				
+				<h1>Добро пожаловать, <%=name %></h1>
 			</center>
 		</div>
-
 	</div>
-	<hr>
-	<br>
+	
 	<div class="container">
 		<div class="header">
-			<form class="search_form" name="search_form" method="POST">
+			<form class="search_form" name="search_form" action="book.jsp">
 
-				<input id="src_input" type="text" name="search_String" value=""
-					size="100" /> <input id="src_button" type="submit" value="Поиск"
-					name="search_button" /> <select name="search_option">
+				<input id="src_input" type="text" name="search_string"
+				    /> 
+				<input id="src_button" type="submit" value="Поиск"
+					/> 
+				<select name="search_option">
 					<option>Название</option>
 					<option>Автор</option>
 				</select>
 			</form>
 		</div>
-		<br> <hr>
+<%@include file = "/WEB-INF/jspf/letters.jspf" %>
 		<div class = "main_conteyner">

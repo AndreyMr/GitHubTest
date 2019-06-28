@@ -1,5 +1,6 @@
 <%@page pageEncoding="UTF-8" %> 
 <div class="sidebar1">
+			<h4 class = "fool_book_list"> <a href="book.jsp?list=fool">Полный каталог книг</a></h4>
 			<h4 class = "slidebar_title">Список авторов:</h4>
 			<ul class="nav">
 				<jsp:useBean id="authorList"

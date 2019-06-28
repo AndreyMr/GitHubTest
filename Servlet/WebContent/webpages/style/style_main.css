@@ -60,6 +60,9 @@ select{
     margin-left: 20px;
 }
 .slidebar_title{
+    margin: 0 auto;
+}
+.fool_book_list{
     margin-top: 1px;
 }
 li{
@@ -110,4 +113,11 @@ footer{
 }
 span{
     font-weight: 600;
+}
+.letters{
+    margin: 10px auto;
+    width: 90%;
+    border-bottom: 1px solid ;
+    text-align: center;
+    padding: 3px;
 }
