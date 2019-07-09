@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<PROCESS model-entity="JSFProcess"/>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#index.xhtml" PATH="/index.xhtml"
+  SHAPE="16,200,50,25" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#index.xhtml:0" NAME="item"
+   PATH="/index.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="books::#pages#books.xhtml" NAME="output"
+    PATH="/pages/books.xhtml" TARGET="rules:#pages#books.xhtml"
+    TITLE="books" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#books.xhtml" PATH="/pages/books.xhtml"
+  SHAPE="176,112,50,25" model-entity="JSFProcessGroup" persistent="true"/>
+</PROCESS>

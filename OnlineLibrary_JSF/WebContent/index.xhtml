@@ -1,31 +1,42 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
-	
-	<h:head>
+	xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
 	<title>#{msg.index_title}</title>
-	<h:outputStylesheet library="style" name="index.css"/>
-	</h:head>	
-	<h:body>
+	<h:outputStylesheet library="style" name="index_style.css" />
+</h:head>
+<h:body>
+
 	<div id="header">
 		<center>
-			<h1>#{msg.welcome_title}</h1>			
+			<h1>#{msg.welcome_title}</h1>
 		</center>
 	</div>
-	
+	<!-- Форма ввода имени -->
 	<h:form>
-	<h3 title="Форма для входа">#{msg.input_info}</h3>
-		<div class="group">			
-			<label for = "">#{msg.input_name}</label> <h:inputText id="username" value="#{user.username}" />
+		<h3 title="Форма для входа">#{msg.input_info}</h3>
+		<div class="group">
+			<label>#{msg.input_name}</label>
+			<h:inputText id="username" value="#{user.username}" rendered="true" requiredMessage="#{msg.login_empty_error}">
+			<f:validator validatorId="main.webapp.validators.LoginValidator"/>
+			</h:inputText>
 		</div>
 		<div class="group">
 			<center>
-				<h:commandButton value="#{msg.input_button}" type="button" class = "login_btn"/>
+				<h:commandButton value="#{msg.input_button}" action="#{loginController.login()}"
+					styleClass="login_btn" />
 			</center>
 		</div>
-	</h:form>	
-	
-	</h:body>
+		<div>
+		<center>
+			<h:message for="username" styleClass="error"/>
+			</center>
+		</div>
+	</h:form>
+	<!-- Конец формы -->
+</h:body>
 
 </html>
