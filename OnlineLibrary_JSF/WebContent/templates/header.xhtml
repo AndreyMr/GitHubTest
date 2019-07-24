@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Facelets Title</title>
+	<h:outputStylesheet library="style" name="style_main.css" />
+</h:head>
+<h:body>
+	<ui:composition>
+
+		<div id="header">
+			<div class="logo"></div>
+			<div class="descr">
+				<center>
+					<h1>Добро пожаловать,</h1>
+				</center>
+			</div>
+		</div>
+		<div class="search_div">
+			<h:form styleClass="search_form">
+				
+				<h:inputText id="search_string" styleClass="search_string" />
+				<h:commandButton value="#{msg.search_button}" styleClass="search_button" />
+
+				<h:selectOneMenu value="#{searchController.searchType}">
+					<f:selectItems value="${searchController.searchList}" />
+				</h:selectOneMenu>
+
+			</h:form>
+		</div>
+	</ui:composition>
+</h:body>
+
+</html>

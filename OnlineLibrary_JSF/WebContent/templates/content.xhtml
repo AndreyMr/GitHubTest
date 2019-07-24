@@ -5,21 +5,14 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-	<title>Books</title>
+	<title>Facelets Title</title>
+	<h:outputStylesheet library="style" name="style_main.css" />
 </h:head>
 <h:body>
-	<ui:composition template="/templates/library_template.xhtml">
-		
-		<ui:define name="title">
-	#{msg.title_book_list}
-	</ui:define>
-		
-		<ui:define name="content">
-	#{param.genre_id}
-	</ui:define>
-
+	<ui:composition>
+		content
 	</ui:composition>
-
-
 </h:body>
+
+
 </html>

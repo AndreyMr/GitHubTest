@@ -14,7 +14,7 @@ public class LoginValidator implements Validator<String> {
 
 	@Override
 	public void validate(FacesContext arg0, UIComponent arg1, String arg2) throws ValidatorException {
-		ResourceBundle bundle = ResourceBundle.getBundle("main.webapp.resources.massages", FacesContext.getCurrentInstance().getViewRoot().getLocale());
+		ResourceBundle bundle = ResourceBundle.getBundle("main.webapp.resources.messages", FacesContext.getCurrentInstance().getViewRoot().getLocale());
 
 		if (Character.toString(arg2.charAt(0)).matches("[-+]?[\\d\\s]+")) {
 			FacesMessage message = new FacesMessage(bundle.getString("login_begin_number_error"));

@@ -11,6 +11,16 @@
   <managed-bean-class>main.webapp.controllers.LoginController</managed-bean-class>
   <managed-bean-scope>request</managed-bean-scope>
  </managed-bean>
+ <managed-bean>
+  <managed-bean-name>genres</managed-bean-name>
+  <managed-bean-class>main.webapp.bean.Genres</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>searchController</managed-bean-name>
+  <managed-bean-class>main.webapp.controllers.SearchController</managed-bean-class>
+  <managed-bean-scope>request</managed-bean-scope>
+ </managed-bean>
  <navigation-rule>
   <from-view-id>/index.xhtml</from-view-id>
   <navigation-case>
@@ -21,7 +31,7 @@
  </navigation-rule>
  <application>
   <resource-bundle>
-   <base-name>main.webapp.resources.massages</base-name>
+   <base-name>main.webapp.resources.messages</base-name>
    <var>msg</var>
   </resource-bundle>
  </application>
