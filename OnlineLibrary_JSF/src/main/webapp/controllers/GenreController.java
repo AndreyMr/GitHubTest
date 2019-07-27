@@ -1,4 +1,4 @@
-package main.webapp.bean;
+package main.webapp.controllers;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -8,9 +8,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import main.webapp.bean.Genre;
 import main.webapp.db.DataBase;
 
-public class Genres {
+public class GenreController {
 	private List<Genre> genreList = new ArrayList<>();
 
 	private List<Genre> getGenres() {
@@ -26,7 +27,7 @@ public class Genres {
 				genreList.add(genre);
 			}
 		} catch (Exception e) {
-			Logger.getLogger(Genres.class.getName()).log(Level.WARNING, e.getMessage(), e);
+			Logger.getLogger(GenreController.class.getName()).log(Level.WARNING, e.getMessage(), e);
 		}
 
 		return genreList;

@@ -9,14 +9,60 @@
 </h:head>
 <h:body>
 	<ui:composition template="/templates/library_template.xhtml">
-		
+
 		<ui:define name="title">
 	#{msg.title_book_list}
 	</ui:define>
-		
+
 		<ui:define name="content">
-	#{param.genre_id}
-	</ui:define>
+			<p>
+				<strong>#{msg.book_count}
+					#{searchController.bookList.size()}</strong>
+			</p>
+			
+			<h:dataTable value="#{searchController.bookList}" var="b"
+				cellspacing="10px" columnClasses="col1, col2, col3">
+
+				<h:column>
+					<h:graphicImage value="/ShowImage?id=#{b.id}" width="120"
+						height="160" />
+				</h:column>
+
+				<h:column>
+
+					<div>
+						<p>
+							<a href="#">#{b.name}</a>
+						</p>
+						<p>
+							<strong>#{msg.book_author_name}: </strong>#{b.author}
+						</p>
+						<p>
+							<strong>#{msg.book_page_count}:</strong> #{b.pageCount}
+						</p>
+						<p>
+							<strong>#{msg.book_publisher}</strong> #{b.publisher}
+						</p>
+						<p>
+							<strong>#{msg.book_publish_year}</strong> #{b.publisherYear} г.
+						</p>
+						<p>
+							<strong>#{msg.book_isbn}</strong> #{b.isbn}
+						</p>
+					</div>
+
+				</h:column>
+
+				<h:column>
+					<div class="book_details">
+						<p>
+							<strong>#{msg.book_descr}</strong>
+						</p>
+						<p>#{b.descr}</p>
+					</div>
+				</h:column>
+			</h:dataTable>
+		</ui:define>
 
 	</ui:composition>
 

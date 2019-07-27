@@ -6,24 +6,29 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<title>Facelets Title</title>
-	<h:outputStylesheet library="style" name="style_main.css" />
+	<h:outputStylesheet library="style" name="style_books.css" />
 </h:head>
 <h:body>
 	<ui:composition>
 
 		<div id="header">
-			<div class="logo"></div>
+			<!-- Ссылка на выход, уничтожается сессия -->
+			<h:form styleClass="exit">
+			<h:commandLink action="#{loginController.exit()}" value="#{msg.exit}" />
+			</h:form>
+			
 			<div class="descr">
 				<center>
-					<h1>Добро пожаловать,</h1>
+					<h1>Добро пожаловать, #{user.username}</h1>
 				</center>
 			</div>
 		</div>
 		<div class="search_div">
 			<h:form styleClass="search_form">
-				
-				<h:inputText id="search_string" styleClass="search_string" />
-				<h:commandButton value="#{msg.search_button}" styleClass="search_button" />
+
+				<h:inputText id="search_string" styleClass="search_string" value="#{searchController.searchString}" />
+				<h:commandButton action="#{searchController.getBookBySearch()}"  value="#{msg.search_button}"
+					styleClass="search_button" />
 
 				<h:selectOneMenu value="#{searchController.searchType}">
 					<f:selectItems value="${searchController.searchList}" />
@@ -31,6 +36,20 @@
 
 			</h:form>
 		</div>
+		
+		<!-- Поиск по кириллице -->
+		<h:form styleClass="letters">
+			<ui:repeat var="letter" value="#{searchController.alphabet}">
+
+				<h:commandLink action="#{searchController.getBooksByLetter()}"
+					value="#{letter}">
+					<f:param name="search_letter" value="#{letter}" />
+				</h:commandLink>
+
+			</ui:repeat>
+		</h:form>
+		<!-- /Поиск по кириллице -->
+		
 	</ui:composition>
 </h:body>
 

@@ -12,20 +12,28 @@
   <managed-bean-scope>request</managed-bean-scope>
  </managed-bean>
  <managed-bean>
-  <managed-bean-name>genres</managed-bean-name>
-  <managed-bean-class>main.webapp.bean.Genres</managed-bean-class>
+  <managed-bean-name>searchController</managed-bean-name>
+  <managed-bean-class>main.webapp.controllers.SearchController</managed-bean-class>
   <managed-bean-scope>session</managed-bean-scope>
  </managed-bean>
  <managed-bean>
-  <managed-bean-name>searchController</managed-bean-name>
-  <managed-bean-class>main.webapp.controllers.SearchController</managed-bean-class>
-  <managed-bean-scope>request</managed-bean-scope>
+  <managed-bean-name>genreController</managed-bean-name>
+  <managed-bean-class>main.webapp.controllers.GenreController</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
  </managed-bean>
  <navigation-rule>
   <from-view-id>/index.xhtml</from-view-id>
   <navigation-case>
    <from-outcome>books</from-outcome>
    <to-view-id>/pages/books.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+ </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/pages/books.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>exit</from-outcome>
+   <to-view-id>/index.xhtml</to-view-id>
    <redirect/>
   </navigation-case>
  </navigation-rule>

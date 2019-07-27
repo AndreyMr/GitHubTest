@@ -6,22 +6,22 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<title>Facelets Title</title>
-	<h:outputStylesheet library="style" name="style_main.css" />
+	<h:outputStylesheet library="style" name="style_books.css" />
 </h:head>
 <h:body>
 	<ui:composition>
 
-		<h4>#{msg.genres_list}</h4>
-
-		<h:dataTable value="#{genres.genreList}" var="g" styleClass="genres">
-
-			<h:column>
-				<h:link value="#{g.name}">
-					<f:param name="genre_id" value="#{g.id}"/>
-				</h:link>
-			</h:column>
-
-		</h:dataTable>
+		<h4 class="left_menu_title">#{msg.genres_list}</h4>
+		<h:form styleClass="genres">
+			<ui:repeat var="g" value="#{genreController.genreList}">
+				<p>
+					<h:commandLink action="#{searchController.getBooksByGenre()}"
+						value="#{g.name}">
+						<f:param name="genre_id" value="#{g.id}" />
+					</h:commandLink>				
+				</p>
+			</ui:repeat>
+		</h:form>
 
 	</ui:composition>
 </h:body>

@@ -1,5 +1,7 @@
 package main.webapp.controllers;
 
+import javax.faces.context.FacesContext;
+
 public class LoginController {
 
 	public LoginController() {
@@ -11,4 +13,8 @@ public class LoginController {
 		return "books";
 	}
 
+	public String exit() {
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		return "exit";
+	}
 }
