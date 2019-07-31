@@ -88,6 +88,9 @@ select{
    margin-left: 5px;
 }
 /* Колонки для отображения книг */
+.booksTable{
+	height: 377px;
+}
 .col1{
     vertical-align: top;
     width: 100px;
@@ -163,9 +166,9 @@ span{
 /*Footer*/
 footer{
     opacity: 0.3;
-    position: fixed; /* Фиксированное положение */
+/*     position: fixed; Фиксированное положение */
     bottom: 0; /* Левый нижний угол */
     padding: 10px; /* Поля вокруг текста */
     background: #96b8e0; /* Цвет фона */    
-    width: 100%; /* Ширина слоя */
+    
 }

@@ -21,6 +21,14 @@ public class SearchController implements Serializable {
 	private SearchType searchType;
 	private static Map<String, SearchType> searchList = new HashMap<String, SearchType>();
 	private String searchString;
+	private int booksOnPage = 2;// количество книг на странице, пока что задается жестко
+	private int selectedGenreID; // последний выбранный жанр
+	private Character selectedLetter; // последняя выбранная буква
+	private long selectedPageNumber = 1; // выбранна страница №1 по умолчанию
+	private long totalBookCount; // общее количество книг в запросе
+	private ArrayList<Integer> pageNumbers = new ArrayList<>(); // лист с страницами
+	private ArrayList<Book> currentBooklist;// текущий лист с книгами
+	private String currentSQL; // текущий sql запрос без limit
 
 	public SearchController() {
 		getAllBooks();
@@ -55,8 +63,23 @@ public class SearchController implements Serializable {
 		return searchString;
 	}
 
+	public ArrayList<Integer> getPageNumbers() {
+		return pageNumbers;
+	}
+
+	public long getTotalBookCount() {
+		return totalBookCount;
+	}
+
+	public int getBooksOnPage() {
+		return booksOnPage;
+	}
+
 	private void getBooks(String query) {
-		// bookList.clear();
+
+		StringBuilder sqlQuery = new StringBuilder(query);
+
+		currentSQL = query;
 
 		Connection conn = null;
 		Statement statement = null;
@@ -64,7 +87,17 @@ public class SearchController implements Serializable {
 		try {
 			conn = DataBase.getConnection();
 			statement = conn.createStatement();
-			resultSet = statement.executeQuery(query);
+			resultSet = statement.executeQuery(sqlQuery.toString());
+
+			resultSet.last();
+			totalBookCount = resultSet.getRow();
+			fillPageNumber(totalBookCount, booksOnPage);
+			if (totalBookCount > booksOnPage) {
+				sqlQuery.append(" limit ").append(selectedPageNumber * booksOnPage - booksOnPage).append(",").append(booksOnPage);
+			}
+
+			resultSet = statement.executeQuery(sqlQuery.toString());
+			currentBooklist = new ArrayList<>();
 
 			while (resultSet.next()) {
 				Book book = new Book();
@@ -75,7 +108,6 @@ public class SearchController implements Serializable {
 				book.setPublisherYear(resultSet.getInt("publish_year"));
 				book.setPublisher(resultSet.getString("publisher"));
 				book.setId(resultSet.getLong("id"));
-				// book.setImage(resultSet.getBytes("image"));
 				book.setAuthor(resultSet.getString("author"));
 				book.setDescr(resultSet.getString("descr"));
 				bookList.add(book);
@@ -99,6 +131,24 @@ public class SearchController implements Serializable {
 
 	}
 
+	// заполняем массив с страницами
+	private void fillPageNumber(long totalBookCount, int booksOnPage) {
+		int pageCount = 0;
+		// int pageCount = totalBookCount > 0 ? (int) totalBookCount / booksOnPage : 0;
+		if (totalBookCount > 0) {
+			pageCount = (int) totalBookCount / booksOnPage;
+			if (totalBookCount % booksOnPage != 0)
+				pageCount++;
+		} else {
+			pageCount = 0;
+		}
+		pageNumbers.clear();
+
+		for (int i = 1; i <= pageCount; i++) {
+			pageNumbers.add(i);
+		}
+	}
+
 	// заполняем полный список книг
 	public void getAllBooks() {
 		bookList.clear();
@@ -112,10 +162,13 @@ public class SearchController implements Serializable {
 	public void getBooksByGenre() {
 		bookList.clear();
 		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-		Integer id = Integer.valueOf(params.get("genre_id"));
+
+		selectedGenreID = Integer.valueOf(params.get("genre_id"));
 		String sqlQuery = "select b.id, b.name, b.isbn, b.page_count, b.publish_year, b.image, b.descr, p.name as publisher, a.fio as author, g.name as genre from book as b\r\n" + "inner join author a on b.author_id = a.id\r\n"
-				+ "inner join publisher p on b.publisher_id = p.id\r\n" + "inner join genre g on b.genre_id = g.id\r\n" + "where genre_id = " + id + " order by b.name limit 0,5";
+				+ "inner join publisher p on b.publisher_id = p.id\r\n" + "inner join genre g on b.genre_id = g.id\r\n" + "where genre_id = " + selectedGenreID + " order by b.name";
 		getBooks(sqlQuery);
+		selectedLetter = ' ';
+		selectedPageNumber = 1;
 
 	}
 
@@ -123,10 +176,14 @@ public class SearchController implements Serializable {
 	public void getBooksByLetter() {
 		bookList.clear();
 		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-		String letter = params.get("search_letter");
+
+		selectedLetter = params.get("search_letter").charAt(0);
+
 		String sqlQuery = "select b.id, b.name, b.isbn, b.page_count, b.publish_year, b.image, b.descr, p.name as publisher, a.fio as author, g.name as genre from book as b\r\n" + "inner join author a on b.author_id = a.id\r\n"
-				+ "inner join publisher p on b.publisher_id = p.id\r\n" + "inner join genre g on b.genre_id = g.id\r\n" + "where substr(b.name, 1,1) = '" + letter + "' order by b.name limit 0,5";
+				+ "inner join publisher p on b.publisher_id = p.id\r\n" + "inner join genre g on b.genre_id = g.id\r\n" + "where substr(b.name, 1,1) = '" + selectedLetter + "' order by b.name";
 		getBooks(sqlQuery);
+		selectedPageNumber = 1;
+		selectedGenreID = -1;
 	}
 
 	// заполняем список книг по строке поиска
@@ -146,7 +203,17 @@ public class SearchController implements Serializable {
 		}
 		sqlQuery.append(" limit 0,5");
 		getBooks(sqlQuery.toString());
+		selectedGenreID = -1;
+		selectedPageNumber = 1;
+		selectedLetter = ' ';
+	}
 
+	public String selectPage() {
+		bookList.clear();
+		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		selectedPageNumber = Integer.valueOf(params.get("page_number"));
+		getBooks(currentSQL);
+		return "books";
 	}
 
 	// получаем картинку в виде массива байтом из БД
@@ -184,6 +251,43 @@ public class SearchController implements Serializable {
 			}
 		}
 		return image;
+	}
+
+	// возвращаем PDF книгу виде массива байтов
+	public byte[] getPDFContent(int id) {
+		Statement stmt = null;
+		ResultSet rs = null;
+		Connection conn = null;
+
+		byte[] contentPDF = null;
+
+		try {
+			conn = DataBase.getConnection();
+			stmt = conn.createStatement();
+
+			rs = stmt.executeQuery("SELECT content FROM library.book where id = " + id);
+			while (rs.next()) {
+				contentPDF = rs.getBytes("content");
+			}
+
+		} catch (SQLException ex) {
+			// Logger.getLogger(Book.class.getName()).log(Level.SEVERE, null, ex);
+		} finally {
+			try {
+				if (stmt != null) {
+					stmt.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException ex) {
+				// Logger.getLogger(Book.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+		return contentPDF;
 	}
 
 	// массив char с кириллицей

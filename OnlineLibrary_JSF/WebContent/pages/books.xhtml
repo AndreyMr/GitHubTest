@@ -17,22 +17,38 @@
 		<ui:define name="content">
 			<p>
 				<strong>#{msg.book_count}
-					#{searchController.bookList.size()}</strong>
+					#{searchController.totalBookCount}</strong>
 			</p>
-			
+			<div class="paper">
+				<h:form
+					rendered="#{searchController.totalBookCount > searchController.booksOnPage}">
+					#{msg.pages}
+					<ui:repeat var="pageNumber" value="#{searchController.pageNumbers}">
+						<h:commandLink action="#{searchController.selectPage()}"
+							value="#{pageNumber}">
+							<f:param name="page_number" value="#{pageNumber}" />
+						</h:commandLink>
+					</ui:repeat>
+				</h:form>
+			</div>
 			<h:dataTable value="#{searchController.bookList}" var="b"
-				cellspacing="10px" columnClasses="col1, col2, col3">
+				cellspacing="10px" columnClasses="col1, col2, col3"
+				styleClass="booksTable">
 
 				<h:column>
-					<h:graphicImage value="/ShowImage?id=#{b.id}" width="120"
-						height="160" />
+					<h:outputLink value="#{request.contextPath}/ShowPDF?id=#{b.id}"
+						target="_blank">
+						<h:graphicImage value="/ShowImage?id=#{b.id}" width="120"
+							height="160" />
+					</h:outputLink>
 				</h:column>
 
 				<h:column>
 
 					<div>
 						<p>
-							<a href="#">#{b.name}</a>
+							<h:outputLink value="#{request.contextPath}/ShowPDF?id=#{b.id}"
+								target="_blank">#{b.name}</h:outputLink>
 						</p>
 						<p>
 							<strong>#{msg.book_author_name}: </strong>#{b.author}
@@ -62,6 +78,18 @@
 					</div>
 				</h:column>
 			</h:dataTable>
+			<div class="paper">
+				<h:form
+					rendered="#{searchController.totalBookCount > searchController.booksOnPage}">
+					#{msg.pages}
+					<ui:repeat var="pageNumber" value="#{searchController.pageNumbers}">
+						<h:commandLink action="#{searchController.selectPage()}"
+							value="#{pageNumber}">
+							<f:param name="page_number" value="#{pageNumber}" />
+						</h:commandLink>
+					</ui:repeat>
+				</h:form>
+			</div>
 		</ui:define>
 
 	</ui:composition>
