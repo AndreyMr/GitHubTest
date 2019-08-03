@@ -38,7 +38,7 @@
 		</div>
 		
 		<!-- Поиск по кириллице -->
-		<h:form styleClass="letters">
+		<h:form styleClass="letters" id="lettersForm">
 			<ui:repeat var="letter" value="#{searchController.alphabet}">
 
 				<h:commandLink action="#{searchController.getBooksByLetter()}"

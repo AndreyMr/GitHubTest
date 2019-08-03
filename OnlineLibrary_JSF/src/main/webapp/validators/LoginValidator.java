@@ -16,6 +16,11 @@ public class LoginValidator implements Validator<String> {
 	public void validate(FacesContext arg0, UIComponent arg1, String arg2) throws ValidatorException {
 		ResourceBundle bundle = ResourceBundle.getBundle("main.webapp.resources.messages", FacesContext.getCurrentInstance().getViewRoot().getLocale());
 
+		if (arg2.isEmpty() || arg2 == null) {
+			FacesMessage message = new FacesMessage(bundle.getString("login_empty_error"));
+			message.setSeverity(FacesMessage.SEVERITY_ERROR);
+			throw new ValidatorException(message);
+		}
 		if (Character.toString(arg2.charAt(0)).matches("[-+]?[\\d\\s]+")) {
 			FacesMessage message = new FacesMessage(bundle.getString("login_begin_number_error"));
 			message.setSeverity(FacesMessage.SEVERITY_ERROR);
